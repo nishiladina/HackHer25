@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
         trip: {
             from: String,
             to: String,
-            date: Date
+            date: [Date],
+            time: String //morning, afternoon, evening, or night
         }
     },
 
@@ -25,7 +26,8 @@ const userSchema = new mongoose.Schema({
         trip: {
             from: String,
             to: String,
-            dates: [Date]
+            dates: [Date],
+            time: String //morning, afternoon, evening, or night
         }
     }
 });
