@@ -8,26 +8,27 @@ const userSchema = new mongoose.Schema({
 
     driverInfo: {
         registration: String, 
-        license: String,
-        model: String,
-        capacity: Number,
-        currentRiders: Number,
+        license: String, //should be boolean?
+        model: String, //model of car
+        luggageCapacity: Number, //max # of luggage in car or should we do per person?
+        riderCapacity: Number, //max number of riders
+        currentRiders: Number, //current # of riders
         trip: {
-            from: String,
-            to: String,
-            date: [Date],
+            from: String, //starting location
+            to: String, //end location
+            date: [Date], //should be an array of arrays to capture ranges more accurately ex: "I can do days 1-12 but cant do day 5"
             time: String //morning, afternoon, evening, or night
         }, 
-        comments: String
+        comments: String 
     },
 
     riderInfo: {
-        totalLuggage: Number,
-        typeOfBaggage: String,
+        totalLuggage: Number, //number of luggage user wants to bring
+        typeOfBaggage: String, //size of luggage
         trip: {
             from: String,
             to: String,
-            dates: [Date],
+            dates: [Date], 
             time: String //morning, afternoon, evening, or night
         }
     },
