@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-container label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .form-container input,
+        .form-container select,
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Create New User</h2>
+        <form action="/submit_form" method="POST">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="email">UMass Email Address</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <!-- <label for="role">Role</label> -->
+            <!-- <select id="role" name="role" required>
+                <option value="admin">Driver</option>
+                <option value="user">Rider</option>
+            </select> -->
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>
