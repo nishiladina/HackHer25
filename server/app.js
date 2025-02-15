@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true }, 
+    password: String, 
     driver: { type: Boolean, default: false }, 
     rider: { type: Boolean, default: false },  
 
     driverInfo: {
-        registration: String,
+        registration: String, 
         license: String,
-        luggageCapacity: Number,
         model: String,
         capacity: Number,
         currentRiders: Number,
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
 
     riderInfo: {
         totalLuggage: Number,
-        sizeOfBaggage: String,
+        typeOfBaggage: String,
         trip: {
             from: String,
             to: String,
@@ -33,3 +33,5 @@ const userSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("User", userSchema);
+
+//after a ride is complete or if a ride is cancelled, fields need to be updated 
