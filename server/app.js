@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
             to: String,
             date: [Date],
             time: String //morning, afternoon, evening, or night
-        }
+        }, 
+        comments: String
     },
 
     riderInfo: {
@@ -29,7 +30,8 @@ const userSchema = new mongoose.Schema({
             dates: [Date],
             time: String //morning, afternoon, evening, or night
         }
-    }
+    },
+    comments: String
 });
 
 module.exports = mongoose.model("User", userSchema);
