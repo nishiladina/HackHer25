@@ -1,86 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New User Form</title>
-    <!-- <link rel="stylesheet" href="./style.css"> -->
-    <style>
-        body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        padding: 20px;
-        background-color: #f4f4f4;
-        }
-        .form-container {
-            max-width: 400px;
-            margin: auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .form-container h2 {
-            text-align: center;
-        }
-        .form-container label {
-            font-weight: bold;
-            display: block;
-            margin: 10px 0 5px;
-        }
-        .form-container input,
-        .form-container select,
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-container button {
-            background-color: #881111;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .form-container button:hover {
-            background-color: #881111;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New User Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+      text-align: center;
+    }
+    .form-container label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+    }
+    .form-container input,
+    .form-container select,
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .form-container button {
+      background-color: #881111;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .form-container button:hover {
+      background-color: #881111;
+    }
+    /* Wrap input and icon together */
+    .input-with-icon {
+      position: relative;
+    }
+    /* Style the status icon */
+    .status-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2em;
+      display: block;
+    }
+    .status-icon.valid {
+      color: green;
+    }
+    .status-icon.invalid {
+      color: red;
+    }
+    .error {
+      color: red;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <h2>Create New User</h2>
-        <form action="/submit_form" method="POST">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" required>
+  <div class="form-container">
+    <h2>Create New User</h2>
+    <div id="error-message" class="error"></div>
+    <form id="newUserForm" action="/submit_form" method="POST">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" required>
 
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" required>
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" required>
 
-            <label for="email">UMass Email Address</label>
-            <input type="email" id="email" name="email" required>
+      <label for="email">UMass Email Address</label>
+      <div class="input-with-icon">
+        <input type="email" id="email" name="email" required>
+        <span id="email-status" class="status-icon"></span>
+      </div>
 
-            <!-- <label for="username">Username</label>
-            <input type="text" id="username" name="username" required> -->
+      <label for="password">Password</label>
+      <div class="input-with-icon">
+        <input type="password" id="password" name="password" required>
+        <span id="password-status" class="status-icon"></span>
+      </div>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+      <label for="confirmPassword">Retype Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
 
-            <label for="password">Retype Password</label>
-            <input type="password" id="password" name="password" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 
-            <!-- <label for="role">Role</label> -->
-            <!-- <select id="role" name="role" required>
-                <option value="admin">Driver</option>
-                <option value="user">Rider</option>
-            </select> -->
+  <script>
+    // Live validation for the password field.
+    document.getElementById('password').addEventListener('input', function(e) {
+      const passwordVal = e.target.value;
+      const icon = document.getElementById('password-status');
+      // Password requirements: at least 8 characters, one uppercase, one lowercase, one digit.
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      if (passwordVal.length === 0) {
+        icon.textContent = '';
+        icon.classList.remove('valid', 'invalid');
+      } else if (passwordRegex.test(passwordVal)) {
+        icon.textContent = '✔';
+        icon.classList.add('valid');
+        icon.classList.remove('invalid');
+      } else {
+        icon.textContent = '✖';
+        icon.classList.add('invalid');
+        icon.classList.remove('valid');
+      }
+    });
 
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+    // Live validation for the email field.
+    document.getElementById('email').addEventListener('input', function(e) {
+      const emailVal = e.target.value;
+      const icon = document.getElementById('email-status');
+      // Check that email ends with @umass.edu (case-insensitive).
+      const emailRegex = /@umass\.edu$/i;
+      if (emailVal.length === 0) {
+        icon.textContent = '';
+        icon.classList.remove('valid', 'invalid');
+      } else if (emailRegex.test(emailVal)) {
+        icon.textContent = '✔';
+        icon.classList.add('valid');
+        icon.classList.remove('invalid');
+      } else {
+        icon.textContent = '✖';
+        icon.classList.add('invalid');
+        icon.classList.remove('valid');
+      }
+    });
+  </script>
 
 </body>
 </html>
