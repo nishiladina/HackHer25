@@ -32,12 +32,12 @@
 
 .right {
   position: absolute;
-  right: 0px;
+  right: 15px;
 }
 
 .left-center{
-  position: absolute;
-  left: auto;
-
+  position: relative;
+  left: 300px;
+  top: 300px;
 } 
 
