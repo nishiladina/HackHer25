@@ -1,43 +1,65 @@
+/* Global resets and basic styling */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.center {
-    margin: auto;
-    width: 50%;
-    border: none;
-    padding: 10px;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
+/* Main container centers everything */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Header styling */
+header h1 {
+  font-size: 3rem;
+  color: #881111;
+  margin-bottom: 40px;
+}
+
+/* Button container uses flexbox for even spacing */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+/* Button styling */
 .button {
-    background-color: #881111; 
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+  background-color: #881111;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.topnav {
-    overflow: hidden;
-    background-color: lightgrey;
-    float: center;
+.button:hover {
+  background-color: #a22b2b;
 }
 
-.right {
-  position: absolute;
-  right: 15px;
+/* Iframe container centers the calendar */
+.iframe-container {
+  display: flex;
+  justify-content: center;
 }
 
-.left-center{
-  position: relative;
-  left: 300px;
-  top: 300px;
-} 
-
+.iframe-container iframe {
+  width: 80%;
+  max-width: 800px;
+  height: 600px;
+  border: 2px solid #881111;
+  border-radius: 8px;
+}
