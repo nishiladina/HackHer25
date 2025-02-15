@@ -50,7 +50,7 @@
     .input-with-icon {
       position: relative;
     }
-    /* Style the status icon */
+    /* Status icon styles */
     .status-icon {
       position: absolute;
       right: 10px;
@@ -97,13 +97,55 @@
       </div>
 
       <label for="confirmPassword">Retype Password</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" required>
+      <div class="input-with-icon">
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <span id="confirm-password-status" class="status-icon"></span>
+      </div>
 
       <button type="submit">Submit</button>
     </form>
   </div>
 
   <script>
+    // Live validation for the email field.
+    document.getElementById('email').addEventListener('input', function(e) {
+      const emailVal = e.target.value;
+      const icon = document.getElementById('email-status');
+      // Check that email ends with @umass.edu (case-insensitive).
+      const emailRegex = /@umass\.edu$/i;
+      if (emailVal.length === 0) {
+        icon.textContent = '';
+        icon.classList.remove('valid', 'invalid');
+      } else if (emailRegex.test(emailVal)) {
+        icon.textContent = '✔';
+        icon.classList.add('valid');
+        icon.classList.remove('invalid');
+      } else {
+        icon.textContent = '✖';
+        icon.classList.add('invalid');
+        icon.classList.remove('valid');
+      }
+    });
+
+    // Function to validate the confirm password field against the main password.
+    function validateConfirmPassword() {
+      const passwordVal = document.getElementById('password').value;
+      const confirmPasswordVal = document.getElementById('confirmPassword').value;
+      const icon = document.getElementById('confirm-password-status');
+      if (confirmPasswordVal.length === 0) {
+        icon.textContent = '';
+        icon.classList.remove('valid', 'invalid');
+      } else if (confirmPasswordVal === passwordVal) {
+        icon.textContent = '✔';
+        icon.classList.add('valid');
+        icon.classList.remove('invalid');
+      } else {
+        icon.textContent = '✖';
+        icon.classList.add('invalid');
+        icon.classList.remove('valid');
+      }
+    }
+
     // Live validation for the password field.
     document.getElementById('password').addEventListener('input', function(e) {
       const passwordVal = e.target.value;
@@ -122,25 +164,34 @@
         icon.classList.add('invalid');
         icon.classList.remove('valid');
       }
+      // Revalidate the confirm password whenever the main password changes.
+      validateConfirmPassword();
     });
 
-    // Live validation for the email field.
-    document.getElementById('email').addEventListener('input', function(e) {
-      const emailVal = e.target.value;
-      const icon = document.getElementById('email-status');
-      // Check that email ends with @umass.edu (case-insensitive).
-      const emailRegex = /@umass\.edu$/i;
-      if (emailVal.length === 0) {
-        icon.textContent = '';
-        icon.classList.remove('valid', 'invalid');
-      } else if (emailRegex.test(emailVal)) {
-        icon.textContent = '✔';
-        icon.classList.add('valid');
-        icon.classList.remove('invalid');
-      } else {
-        icon.textContent = '✖';
-        icon.classList.add('invalid');
-        icon.classList.remove('valid');
+    // Live validation for the confirm password field.
+    document.getElementById('confirmPassword').addEventListener('input', validateConfirmPassword);
+
+    // Form submission validation.
+    document.getElementById('newUserForm').addEventListener('submit', function(e) {
+      const errorDiv = document.getElementById('error-message');
+      errorDiv.textContent = ''; // Clear previous errors
+      
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      // Password requirements: at least 8 characters, one uppercase, one lowercase, one digit.
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      
+      if (password !== confirmPassword) {
+        e.preventDefault();
+        errorDiv.textContent = 'Passwords do not match.';
+        return;
+      }
+      
+      if (!passwordRegex.test(password)) {
+        e.preventDefault();
+        errorDiv.textContent = 'Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number.';
+        return;
       }
     });
   </script>
